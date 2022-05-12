@@ -5,10 +5,10 @@
 */
 #include <stdio.h>
 
-__int64 concat(int, int);
-__int64 getExponent(int, int);
-int getMaxDigitValue(__int64);
-int getSuperDigit(__int64);
+__int64 concat(unsigned int, unsigned int);
+__int64 getExponent(unsigned int, unsigned int);
+int getMaxDigitValue(unsigned __int64);
+int getSuperDigit(unsigned __int64);
 
 int main(int argc, char const *argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, char const *argv[])
     return 0;
 }
 
-int getMaxDigitValue(__int64 number)
+int getMaxDigitValue(unsigned __int64 number)
 {
     int maxDigitValue = 0;
     for (int i = 0; number >= 1; i++)
@@ -37,7 +37,7 @@ int getMaxDigitValue(__int64 number)
     return maxDigitValue;
 }
 
-__int64 concat(int number, int k)
+__int64 concat(unsigned int number, unsigned int k)
 {
     __int64 concatinatedNumber = number;
     int tempN = number,
@@ -51,7 +51,7 @@ __int64 concat(int number, int k)
     return concatinatedNumber;
 }
 
-__int64 getExponent(int number, int maxDigitValue)
+__int64 getExponent(unsigned int number, unsigned int maxDigitValue)
 {
     if (maxDigitValue == 1)
     {
@@ -60,8 +60,13 @@ __int64 getExponent(int number, int maxDigitValue)
     return number * getExponent(number, maxDigitValue - 1);
 }
 
-int getSuperDigit(__int64 concatinatedNumber)
+int getSuperDigit(unsigned __int64 concatinatedNumber)
 {
+    if (concatinatedNumber / 10.0 < 1)
+    {
+        return concatinatedNumber;
+    }
+
     int superDigit = 0,
         digit = 0,
         maxDigitValue = getMaxDigitValue(concatinatedNumber);
@@ -72,5 +77,5 @@ int getSuperDigit(__int64 concatinatedNumber)
         superDigit += digit;
         concatinatedNumber /= 10;
     }
-    return superDigit;
+    return getSuperDigit(superDigit);
 }
