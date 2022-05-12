@@ -18,6 +18,8 @@ int main(int argc, char const *argv[])
     scanf("%d", &number);
     printf("%s", "Please enter repetition factor (k=) : ");
     scanf("%d", &k);
+    // the maximum number of digits of the concatinatedNumber is 19
+    // If you exceed the limit, the number will be incorrect
     concatinatedNumber = concat(number, k);
     printf("%s %lld %s %d", "Super digit of number", concatinatedNumber, "is", getSuperDigit(concatinatedNumber));
 
