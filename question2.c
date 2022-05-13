@@ -1,22 +1,24 @@
 #include <stdio.h>
-
 int getSuperDigit(unsigned __int64, unsigned int);
 int getMaxDigitValue(unsigned __int64);
+
 int counter = 0;
+
 int main(int argc, char const *argv[])
 {
-    unsigned int number, k, sumOfDigits;
+    unsigned __int64 number;
+    unsigned int k, sumOfDigits;
     printf("Please enter a number (n=) : ");
-    scanf(" %d", &number);
+    scanf(" %llu", &number);
     printf("Please enter repetition factor (k=) : ");
-    scanf("%d", &k);
+    scanf("%u", &k);
     printf("Super digit of number ");
     for (int i = 0; i < k; i++)
     {
-        printf("%d", number);
+        printf("%llu", number);
     }
 
-    sumOfDigits = getSuperDigit(number,k);
+    sumOfDigits = getSuperDigit(number, k);
     printf(" is %d", sumOfDigits);
 
     return 0;
@@ -39,7 +41,6 @@ int getSuperDigit(unsigned __int64 number, unsigned int k)
     {
         return number;
     }
-
     int superDigit = 0,
         digit = 0,
         maxDigitValue = getMaxDigitValue(number);
