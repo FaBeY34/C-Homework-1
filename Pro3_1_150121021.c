@@ -1,8 +1,7 @@
-/*
-    In this question, I wrote a program to find out the number of ears of rabbits standing in a line
-    Name and Surname : Feyzullah Asıllıoğlu
-    Student ID : 150121021
-*/
+// In this question, I wrote a program to find out the number of ears of rabbits standing in a line
+// Name and Surname : Feyzullah Asıllıoğlu
+// Student ID : 150121021
+
 #include <stdio.h>
 int bunnyEars(int);
 int main(int argc, char const *argv[])
@@ -11,7 +10,7 @@ int main(int argc, char const *argv[])
 
     printf("Please enter the number of lines (n=): ");
     scanf("%u", &numberOfLines);
-    
+
     numberOfEars = bunnyEars(numberOfLines);
 
     printf("%d", numberOfEars);

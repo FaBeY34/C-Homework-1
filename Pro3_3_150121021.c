@@ -1,51 +1,81 @@
-#include <stdio.h>
-int getExponent(int);
-void drawTriangle(int);
+// In this question, I wrote a program for drawing a triangular shape, iterating the previous ones
+// Name and Surname : Feyzullah Asıllıoğlu
+// Student ID : 150121021
 
-int main(int argc, char const *argv[])
+#include <stdio.h>
+
+const int ROW = 32;
+const int COL = 63;
+
+void initializeMatrix(char matrix[ROW][COL]);
+void iterateMatrix(char matrix[ROW][COL], int startRow, int startCol, int heightOfTriangles, int iterationNumber);
+void arrangeTriangle(char matrix[ROW][COL], int startRow, int startCol, int heightOfTriangles);
+void printShape(char matrix[ROW][COL]);
+
+int main(void)
 {
-    unsigned int number;
-    printf("Please enter a number: ");
-    scanf("%u", &number);
-    while (number >= 5)
+    unsigned int iterationNumber;
+    printf("Please enter a number of iteration: ");
+    scanf("%u", &iterationNumber);
+    // taking input from the user until the user enters a iteration number less than 5.
+    while (iterationNumber >= 5)
     {
         printf("Number must be less than 5, enter again: ");
-        scanf("%u", &number);
+        scanf("%u", &iterationNumber);
     }
-    drawTriangle(number);
+
+    char matrix[ROW][COL];
+
+    initializeMatrix(matrix);                                // initialize phase
+    iterateMatrix(matrix, 0, COL / 2, ROW, iterationNumber); // iteration phase
+    printShape(matrix);                                      // print phase
     return 0;
 }
-int getExponent(int exp)
+// initializing our matrix with full of '_'.
+void initializeMatrix(char matrix[ROW][COL])
 {
-    if (exp == 0)
+    for (int i = 0; i < ROW; i++)
     {
-        return 1;
+        for (int j = 0; j < COL; j++)
+        {
+            matrix[i][j] = '_';
+        }
     }
-    return 2 * getExponent(exp - 1);
 }
-void drawTriangle(int number)
+// this function iterates the matrix to construct the shape according to the instructions given.
+void iterateMatrix(char matrix[ROW][COL], int startRow, int startCol, int heightOfTriangles, int iterationNumber)
 {
-    int i, j, row = getExponent(5 - number);
-
-    for (int i = 1; i <= row; i++)
+    if (iterationNumber == 0)
     {
-        for (j = 1; j <= (row - i); j++)
-        {
-            printf("_");
-        }
-
-        for (j = 1; j <= (2 * i - 1); j++)
-        {
-            printf("1");
-        }
-
-        for (j = 1; j <= (row - i); j++)
-        {
-            printf("_");
-        }
-
-        printf("\n");
-
+        arrangeTriangle(matrix, startRow, startCol, heightOfTriangles);
     }
-    drawTriangle(number);
+    else
+    {
+        iterateMatrix(matrix, startRow, startCol, heightOfTriangles / 2, iterationNumber - 1);
+        iterateMatrix(matrix, startRow + heightOfTriangles / 2, startCol - heightOfTriangles / 2, heightOfTriangles / 2, iterationNumber - 1);
+        iterateMatrix(matrix, startRow + heightOfTriangles / 2, startCol + heightOfTriangles / 2, heightOfTriangles / 2, iterationNumber - 1);
+    }
+}
+// this function prints the final arranged matrix to the console.
+void printShape(char matrix[ROW][COL])
+{
+    for (int i = 0; i < ROW; i++)
+    {
+        for (int j = 0; j < COL; j++)
+        {
+            printf("%c", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+// this function arranges the matrix one by one according to the instructions given.
+void arrangeTriangle(char matrix[ROW][COL], int startRow, int startCol, int heightOfTriangles)
+{
+    for (int i = 0; i < heightOfTriangles; i++)
+    {
+        for (int j = startCol - i; j <= startCol + i; j++)
+        {
+            matrix[startRow + i][j] = '1';
+        }
+    }
 }
