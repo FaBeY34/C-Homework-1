@@ -43,6 +43,11 @@ int getMaxDigitValue(unsigned __int64 number)
 
 int getSuperDigit(unsigned __int64 number, unsigned int k)
 {
+    if (counter == 0 && number / 10.0 < 1)
+    {
+        return number * k;
+    }
+    
     if (number / 10.0 < 1)
     {
         return number;
